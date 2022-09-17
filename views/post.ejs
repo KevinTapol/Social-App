@@ -13,6 +13,7 @@
           <button class="btn btn-primary fa fa-heart" type="submit"></button>
         </form>
         <h3 class="col-3">Likes: <%= post.likes %></h3>
+        <!-- if the logged in user is the person that made the post show the delete trash can -->
         <%if(post.user == user.id){ %>
         <form
           action="/post/deletePost/<%= post.id %>?_method=DELETE"
@@ -27,6 +28,32 @@
     <div class="col-3 mt-5">
       <p><%= post.caption %></p>
     </div>
+    <!-- form for users to submit comments to specific posts -->
+    <div class="mt-5">
+      <h2>Add a comment</h2>
+      <!-- route for comments for a singular post-->
+      <!-- when the post page renders the form action will have a new route of comment create comment by current post id -->
+      <!-- make sure the controller const in post.js matches the const here in this case post -->
+      <form action="/comment/createComment/<%=post._id%>" method="POST">
+        <div class="mb-3">
+          <!-- comment input -->
+            <label for="comment" class="form-label">Comment</label>
+            <input type="text" class="form-control" id="comment" name="comment">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    <!-- list of comments -->
+    <ul>
+      <% for(var i=0; i<comments.length; i++) {%>
+        <li class="col-6 justify-content-between mt-5">
+          <!-- for the comments loop through and pull the .property in our post model by the comment property -->
+          <!-- I had a typo here adding an extra m in comment that prevent my comments from rendering -->
+          <%= comments[i].comment%>
+        </li>
+      <% } %>
+    </ul>
+
     <div class="col-6 mt-5">
       <a class="btn btn-primary" href="/profile">Return to Profile</a>
       <a class="btn btn-primary" href="/feed">Return to Feed</a>
