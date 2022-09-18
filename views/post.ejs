@@ -45,12 +45,27 @@
     </div>
     <!-- list of comments -->
     <ul>
+      <!--TODO add: userName and delete button -->
       <% for(var i=0; i<comments.length; i++) {%>
         <li class="col-6 justify-content-between mt-5">
           <!-- for the comments loop through and pull the .property in our post model by the comment property -->
           <!-- I had a typo here adding an extra m in comment that prevent my comments from rendering -->
-          <%= comments[i].comment%>
+          <!-- populate comments with who created it -->
+          User <%= comments[i].createdBy%> says: "<%= comments[i].comment%>" 
+          <!-- get the id of the user currently logged in match by object to string is why 2 equals and not 3-->
+          <!-- router.delete will recongnize this path -->
+          <%if(comments[i].createdById == user.id) {%>
+          <form 
+          action="/comment/deleteComment/<%= post._id %>/<%= comments[i]._id %>?_method=DELETE"
+          method="POST"
+          class="col-3"
+        >
+          <button class="btn btn-outline-danger" type="submit">Delete</button>
+        </form>
+        <% } %>
         </li>
+        
+        
       <% } %>
     </ul>
 

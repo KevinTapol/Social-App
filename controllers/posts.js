@@ -24,7 +24,8 @@ module.exports = {
     try {
       const post = await Post.findById(req.params.id);
       // go to comments model find all posts properties of the current post you are at by id, sort by descending order and use .lean() to grab only the pure java script object
-      const comments = await Comment.find({post: req.params.id }).sort({ createdAt: "desc" }).lean();
+      // changed createdAt: from "desc" to "asc" to display newest comments first instead of oldest comments
+      const comments = await Comment.find({post: req.params.id }).sort({ createdAt: "asc" }).lean();
       // property of comments : equal to the commments found in our collection that match the id of the post currently on
       res.render("post.ejs", { post: post, user: req.user, comments: comments });
     } catch (err) {

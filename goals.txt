@@ -1,0 +1,38 @@
+1. Add a delete button and delete ability to each comment wich is only visible to the user who submitted the comment.
+model -> controller -> router -> server.js -> views
+
+when you make changes in your ejs you must restart the server.js
+
+req.user vs req.params
+request body vs request pathing
+
+
+
+
+
+2. Add the username associated with each comment to the comment text
+
+- find the username based on the user ID attached to the comment
+
+-model
+- DB storage of the user ID who created the comment
+When adding a new feature best practice is to start at the model
+in Comment.js models add createdById to compare to currently logged in user req.user to later enable delete button - the reason being that if a user can change their name, we are comparing the unique id instead of user name
+also add createdBy in Comment.js models
+
+-controller
+- The user who created the comment's ID
+in controllers folder posts.js changed the method getPost sorted order to asc from desc
+in controllers folder comments.js createComment method add createdBy and createdById
+
+- a controller with a delete method
+
+create a delete comment method called deleteComments in the file comments.js in the controller folder
+
+- routes
+create a route for the deleteComments 
+
+
+- views post.ejs
+- a button
+- a conditional statement in the view that compares the logged in user with the comment user ID
